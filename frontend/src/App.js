@@ -1,6 +1,6 @@
-import React from "react";
-import "./App.css";
-import NoteList from "./components/NoteList";
+import React from 'react';
+import './App.css';
+import NoteList from './components/NoteList';
 
 function App() {
   return (

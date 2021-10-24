@@ -38,7 +38,7 @@ function NoteList() {
     fetchNotes();
   };
 
-  const renderedNoteList = notes.map((val, index) => (
+  const renderedNoteList = notes.map((val) => (
     <div
       className="d-flex my-3 py-1 pr-1 text-left align-items-center note-container"
       key={val.id}

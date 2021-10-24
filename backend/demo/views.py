@@ -6,6 +6,6 @@ from demo.serializers import NoteSerializer
 
 # Create your views here.
 class NoteViewSet(viewsets.ModelViewSet):
-    queryset = Note.objects.all()
+    queryset = Note.objects.all().order_by('pk')
     serializer_class = NoteSerializer
     permission_classes = [AllowAny]
