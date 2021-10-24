@@ -4,12 +4,8 @@ services:
 
 before_install:
   - docker build -t frontend -f ./frontend/Dockerfile.dev ./frontend
+  - docker build -t backend -f ./backend/Dockerfile.dev ./backend
 
 script:
   - docker run -e CI=true frontend npm test
-
-after_success:
-  - docker build -t jiaqiwang18/multi-client ./client
-  - docker build -t jiaqiwang18/multi-nginx ./nginx
-  - docker build -t jiaqiwang18/multi-server ./server
-  - docker build -t jiaqiwang18/multi-worker ./worker
+  - docker run -e python manage.py test
