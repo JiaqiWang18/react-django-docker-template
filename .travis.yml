@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t complex -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true complex npm test
+
+after_success:
+  - docker build -t jiaqiwang18/multi-client ./client
+  - docker build -t jiaqiwang18/multi-nginx ./nginx
+  - docker build -t jiaqiwang18/multi-server ./server
+  - docker build -t jiaqiwang18/multi-worker ./worker
