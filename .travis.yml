@@ -8,5 +8,9 @@ before_install:
   - docker ps
 
 script:
+  - docker-compose run db
   - docker-compose run -e CI=true frontend npm test
   - docker-compose run api ./wait-for-postgres.sh db:5432 -- python manage.py test
+
+after_script:
+  - docker-compose down
