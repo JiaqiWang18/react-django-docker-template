@@ -4,7 +4,6 @@ services:
 
 before_install:
   - docker build -t frontend -f ./frontend/Dockerfile.dev ./frontend
-  - docker build -t backend -f ./backend/Dockerfile.dev ./backend
 
 script:
   - docker run -e CI=true frontend npm test
