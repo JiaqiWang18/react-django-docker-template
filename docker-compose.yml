@@ -8,11 +8,13 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
   api:
     build: 
       dockerfile: Dockerfile.dev
       context: ./backend
-    entrypoint: /app/entrypoint-dev.sh
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend:/app
     ports:
