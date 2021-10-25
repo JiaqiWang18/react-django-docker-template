@@ -14,11 +14,20 @@ services:
     build: 
       dockerfile: Dockerfile.dev
       context: ./backend
-    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python manage.py wait_for_db &&
+                    python manage.py migrate &&
+                    python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend:/app
     ports:
       - "8000:8000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - SECRET_KEY=devsecretkey
+      - DEBUG=1
     depends_on:
       - db
   frontend:
