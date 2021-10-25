@@ -23,6 +23,7 @@ module.exports = {
   ignorePatterns: ['index.js', 'reportWebVitals.js'],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'react/button-has-type': 0,
     ...a11yOff,
   },
