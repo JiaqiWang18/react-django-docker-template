@@ -3,8 +3,9 @@ services:
   - docker
 
 before_install:
-  - docker build -t frontend -f ./frontend/Dockerfile.dev ./frontend
+  - docker-compose up   -d
+  - docker ps
 
 script:
-  - docker run -e CI=true frontend npm test
+  - docker-compose run -e CI=true frontend npm test
   - docker-compose run api ./wait-for-postgres.sh db:5432 -- python manage.py test
