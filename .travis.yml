@@ -1,15 +1,12 @@
-sudo: required
 services:
   - docker
 
 before_install:
-  #- docker build -t frontend -f ./frontend/Dockerfile.dev ./frontend
-  #- docker build -t db -f ./backend/Dockerfile.dev ./frontend
-  #- docker build -t backend -f ./backend/Dockerfile.dev ./frontend
+  - docker build -t frontend -f ./frontend/Dockerfile.dev ./frontend
 
 script:
-  #- docker run -e CI=true frontend npm run lint
-  #- docker run -e CI=true frontend npm test
+  - docker run -e CI=true frontend npm run lint
+  - docker run -e CI=true frontend npm test
   - docker-compose -f docker-compose-dev.yml run api python manage.py test
 
 after_success:
