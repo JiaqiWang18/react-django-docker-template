@@ -1,52 +1,26 @@
 version: "3"
 services:
-  db:
-    image: postgres:latest
-    volumes:
-      - ./postgres_data/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - "5432:5432"
   api:
-    build: 
-      dockerfile: Dockerfile.dev
-      context: ./backend
+    image: "jiaqiwang118/multi-server"
+    mem_limit: 128m
+    hostname: api
     command: sh -c "python manage.py wait_for_db &&
                     python manage.py migrate &&
                     python manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - ./backend:/app
-    ports:
-      - "8000:8000"
     environment:
-      - DB_HOST=db
-      - DB_NAME=postgres
-      - DB_USER=postgres
-      - DB_PASS=postgres
-      - SECRET_KEY=devsecretkey
+      - DB_HOST=$DB_HOST
+      - DB_NAME=$DB_NAME
+      - DB_USER=$DB_USER
+      - DB_PASS=$DB_PASS
+      - SECRET_KEY=$SECRET_KEY
       - DEBUG=1
-    depends_on:
-      - db
   frontend:
-    stdin_open: true
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./frontend
-    volumes:
-      - /app/node_modules
-      - ./frontend:/app
+    image: "jiaqiwang118/template-frontend"
+    mem_limit: 128m
+    hostname: frontend
   nginx:
-    restart: always
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./nginx
-    volumes:
-      - ./nginx:/etc/nginx/conf.d
+    image: "jiaqiwang118/template-nginx"
+    mem_limit: 128m
+    hostname: nginx
     ports:
-      - "5000:80"
-    depends_on:
-      - api
-      - frontend
+      - "80:80"
