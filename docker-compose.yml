@@ -14,7 +14,7 @@ services:
       - DB_USER=$DB_USER
       - DB_PASS=$DB_PASS
       - SECRET_KEY=$SECRET_KEY
-      - DEBUG=1
+      - DEBUG=$DEBUG
   frontend:
     image: "jiaqiwang118/template-frontend"
     mem_limit: 128m
