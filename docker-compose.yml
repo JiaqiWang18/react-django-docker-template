@@ -1,7 +1,7 @@
 version: "3"
 services:
   api:
-    image: "jiaqiwang118/multi-server"
+    image: "jiaqiwang118/template-backend"
     mem_limit: 128m
     hostname: api
     command: sh -c "python manage.py wait_for_db &&
