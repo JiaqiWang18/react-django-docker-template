@@ -8,3 +8,12 @@ before_install:
 script:
   - docker run -e CI=true frontend npm run lint
   - docker run -e CI=true frontend npm test
+
+after_success:
+  - docker build -t jiaqiwang118/template-frontend ./frontend
+  - docker build -t jiaqiwang118/template-backend ./backend
+  - docker build -t jiaqiwang118/template-nginx ./nginx
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push jiaqiwang118/template-frontend
+  - docker push jiaqiwang118/template-backend
+  - docker push jiaqiwang118/template-nginx
