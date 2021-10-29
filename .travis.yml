@@ -4,7 +4,7 @@ services:
 
 before_install:
   #- docker build -t frontend -f ./frontend/Dockerfile.dev ./frontend
-  - docker-compose -f docker-compose-dev.yml up
+  - docker build -t backend -f ./backend/Dockerfile.dev ./frontend
 
 script:
   #- docker run -e CI=true frontend npm run lint
