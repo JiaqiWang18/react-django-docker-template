@@ -1,7 +1,7 @@
 version: "3"
 services:
   db:
-    image: postgres:latest
+    image: postgres:buster
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
@@ -26,10 +26,6 @@ services:
       - DB_PASS=postgres
       - SECRET_KEY=devsecretkey
       - DEBUG=1
-    steps:
-      - checkout
-      - setup_remote_docker:
-          version: 20.10.6
     depends_on:
       - db
   frontend:
