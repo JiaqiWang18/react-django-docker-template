@@ -4,10 +4,12 @@ services:
 
 before_install:
   - docker build -t frontend -f ./frontend/Dockerfile.dev ./frontend
+  - docker-compose -f docker-compose-dev.yml up
 
 script:
   - docker run -e CI=true frontend npm run lint
   - docker run -e CI=true frontend npm test
+  - docker-compose -f docker-compose-dev.yml run api python manage.py test
 
 after_success:
   - docker build -t jiaqiwang118/template-frontend ./frontend
