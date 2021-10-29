@@ -8,10 +8,6 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
-    steps:
-      - checkout
-      - setup_remote_docker:
-          version: 20.10.6
   api:
     build: 
       dockerfile: Dockerfile.dev
@@ -30,6 +26,10 @@ services:
       - DB_PASS=postgres
       - SECRET_KEY=devsecretkey
       - DEBUG=1
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.6
     depends_on:
       - db
   frontend:
